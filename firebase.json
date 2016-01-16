@@ -1,5 +1,5 @@
 {
-  "firebase": "ucdd2-book",
+  "firebase": "hello-jtresman",
   "public": "build",
   "ignore": [
     "firebase.json",
