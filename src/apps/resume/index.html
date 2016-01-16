@@ -1,117 +1,122 @@
 <!DOCTYPE html>
-  <html>
-    <head>
-      <!--Import Google Icon Font-->
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      <!--Import materialize.css-->
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+<html>
 
-      <!--Let browser know website is optimized for mobile-->
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
+<head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
 
-    <body>
-      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
-      <script src="https://cdn.firebase.com/js/client/2.3.2/firebase.js"></script>
-
-      <div class="container">
-
-        <h1>Jacob Resman</h1>
-
+<body>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+    <script src="https://cdn.firebase.com/js/client/2.3.2/firebase.js"></script>
+    <nav class="blue-grey darken-1">
+        <div class="nav-wrapper container">
+            <div class="col s6">
+                <a id="logo-container" href="/src/apps/todos/index.html" class="header orange-text brand-logo center">Jacob Resman</a>
+                <ul id="nav-mobile" class="left hide-on-med-and-down">
+                    <li><a href="/">Home</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
         <h2>Education</h2>
-        <ul class="collection" id="education">
+        <ul class="collection with-header" id="education">
         </ul>
-
         <h2>Class List</h2>
         <ul class="collection" id="class_list">
         </ul>
-
         <h2>Jobs</h2>
         <ul class="collection with-header" id="jobs">
         </ul>
-
         <h2>Hobbies</h2>
         <ul class="collection" id="hobbies">
         </ul>
-
         <h2>Favorite Programming Languages</h2>
         <ul class="collection">
-          <li class="collection-item">C</li>
-          <li class="collection-item">C#</li>
-          <li class="collection-item">Java</li>
+            <li class="collection-item">C</li>
+            <li class="collection-item">C#</li>
+            <li class="collection-item">Java</li>
         </ul>
-
         <h2>Favorite Food</h2>
         <ul class="collection" id="foods">
         </ul>
+    </div>
+    <!--Create Food List-->
+    <script>
+    // create a firebase reference to the root
+    var ref = new Firebase('https://hello-jtresman.firebaseio.com/')
 
-      </div>
-
-
-      <!--Create Food List-->
-      <script>
-
-        // create a firebase reference to the root
-        var ref = new Firebase('https://hello-jtresman.firebaseio.com/')
-
-          // read data from the location bio/favorite_foods, only once
-        ref.child('bio/favorite_foods').once('value', function(snapshot){
-          var foods = snapshot.val()
-          foods.forEach(function(food){
+    // read data from the location bio/favorite_foods, only once
+    ref.child('bio/favorite_foods').once('value', function(snapshot) {
+        var foods = snapshot.val()
+        foods.forEach(function(food) {
             $('#foods').append('<li class="collection-item">' + food + '</li>')
-          })
-
-
         })
-      </script>
 
-      <!--Create Hobbies List-->
-      <script>
-        // create a firebase reference to the root
-        var ref = new Firebase('https://hello-jtresman.firebaseio.com/')
 
-          // read data from the location bio/hobbies, only once
-        ref.child('bio/hobbies').once('value', function(snapshot){
-          var hobbies = snapshot.val()
-          hobbies.forEach(function(hobbie){
+    })
+    </script>
+    <!--Create Hobbies List-->
+    <script>
+    // create a firebase reference to the root
+    var ref = new Firebase('https://hello-jtresman.firebaseio.com/')
+
+    // read data from the location bio/hobbies, only once
+    ref.child('bio/hobbies').once('value', function(snapshot) {
+        var hobbies = snapshot.val()
+        hobbies.forEach(function(hobbie) {
             $('#hobbies').append('<li class="collection-item">' + hobbie + '</li>')
-          })
         })
-      </script>
+    })
+    </script>
+    <!--Create Class List-->
+    <script>
+    // create a firebase reference to the root
+    var ref = new Firebase('https://hello-jtresman.firebaseio.com/')
 
-      <!--Create Class List-->
-      <script>
-
-        // create a firebase reference to the root
-        var ref = new Firebase('https://hello-jtresman.firebaseio.com/')
-
-          // read data from the location bio/hobbies, only once
-        ref.child('bio/class_list').once('value', function(snapshot){
-          var classes = snapshot.val()
-          classes.forEach(function(class_item){
+    // read data from the location bio/hobbies, only once
+    ref.child('bio/class_list').once('value', function(snapshot) {
+        var classes = snapshot.val()
+        classes.forEach(function(class_item) {
             $('#class_list').append('<li class="collection-item">' + class_item + '</li>')
-          })
-
-
         })
-      </script>
 
-      <!--Create Job List-->
-      <script>
 
-        // create a firebase reference to the root
-        var ref = new Firebase('https://hello-jtresman.firebaseio.com/')
+    })
+    </script>
+    <!--Create Job List-->
+    <script>
+    // create a firebase reference to the root
+    var ref = new Firebase('https://hello-jtresman.firebaseio.com/')
 
-          // read data from the location bio/hobbies, only once
-        ref.child('bio/jobs').once('value', function(snapshot){
-          var jobs = snapshot.val()
-          console.log(jobs)
-          jobs.forEach(function(job){
-            $('#jobs').append('<li class="collection-header"><h5>' + job.Title + '</h5></li><li class="collection-item">Description: ' + job.Description + '</li><li class="collection-item">Year: '+ job.Year + '</li>')
-          })
+    // read data from the location bio/hobbies, only once
+    ref.child('bio/jobs').once('value', function(snapshot) {
+        var jobs = snapshot.val()
+        jobs.forEach(function(job) {
+            $('#jobs').append('<li class="collection-header"><h5>' + job.Title + '</h5></li><li class="collection-item">Description: ' + job.Description + '</li><li class="collection-item">Year: ' + job.Year + '</li>')
         })
-      </script>
+    })
+    </script>
 
-    </body>
-  </html>
+    <script>
+    // create a firebase reference to the root
+    var ref = new Firebase('https://hello-jtresman.firebaseio.com/')
+
+    // read data from the location bio/hobbies, only once
+    ref.child('bio/education').once('value', function(snapshot) {
+        var education = snapshot.val()
+        education.forEach(function(school) {
+            $('#education').append('<li class="collection-header"><h5>' + school.Name + '</h5></li><li class="collection-item">Major: ' + school.Major + '</li><li class="collection-item">Minor: ' + school.Minor + '</li><li class="collection-item">GPA: ' + school.GPA + '</li><li class="collection-item">Year: ' + school.Year + '</li>')
+        })
+    })
+    </script>
+
+</body>
+
+</html>
