@@ -14,56 +14,180 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
     <script src="https://cdn.firebase.com/js/client/2.3.2/firebase.js"></script>
-    <nav class="blue-grey darken-1">
+    <nav class="blue-grey darken-1 ">
         <div class="nav-wrapper container">
             <div class="col s6">
                 <a id="logo-container" href="/src/apps/todos/index.html" class="header orange-text brand-logo center">Jacob Resman</a>
-                <ul id="nav-mobile" class="left hide-on-med-and-down">
+                <ul id="nav-mobile" class="left">
                     <li><a href="/">Home</a></li>
                 </ul>
-                <ul id="subscribe" class="right hide-on-med-and-down">
+                <ul id="subscribe" class="right">
                     <li><a href="subscribe.html">Subscribe</a></li>
                 </ul>
             </div>
         </div>
     </nav>
-    <div class="container">
-        <h2>Education</h2>
-        <ul class="collection with-header" id="education">
-        </ul>
-        <h2>Class List</h2>
-        <ul class="collection" id="class_list">
-        </ul>
-        <h2>Jobs</h2>
-        <ul class="collection with-header" id="jobs">
-        </ul>
-        <h2>Hobbies</h2>
-        <ul class="collection" id="hobbies">
-        </ul>
-        <h2>Favorite Programming Languages</h2>
-        <ul class="collection">
-            <li class="collection-item">C</li>
-            <li class="collection-item">C#</li>
-            <li class="collection-item">Java</li>
-        </ul>
-        <h2>Favorite Food</h2>
-        <ul class="collection" id="foods">
-        </ul>
+    <div class="row">
+        <div class="col s3"><span class="flow-text">
+            <h3>Tasks</h3>
+            <ul class="collection with-header" id="tasksHigh">
+                <li class="collection-header">
+                    <h5>High Priority: </h5></li>
+            </ul>
+            <ul class="collection with-header" id="tasksMedium">
+                <li class="collection-header">
+                    <h5>Medium Priority: </h5></li>
+            </ul>
+            <ul class="collection with-header" id="tasksLow">
+                <li class="collection-header">
+                    <h5>Low Priority: </h5></li>
+            </ul>
+        </span>
+        </div>
+        <div class="col s8"><span class="flow-text">
+            <div class="container">
+                <h2>Education</h2>
+                <ul class="collection with-header" id="education">
+                </ul>
+                <h2>Class List</h2>
+                <ul class="collection" id="class_list">
+                </ul>
+                <h2>Jobs</h2>
+                <ul class="collection with-header" id="jobs">
+                </ul>
+                <h2>Hobbies</h2>
+                <ul class="collection" id="hobbies">
+                </ul>
+                <h2>Favorite Programming Languages</h2>
+                <ul class="collection">
+                    <li class="collection-item">C</li>
+                    <li class="collection-item">C#</li>
+                    <li class="collection-item">Java</li>
+                </ul>
+                <h2>Favorite Food</h2>
+                <ul class="collection" id="foods">
+                </ul>
+            </span>
+        </div>
     </div>
+    </div>
+
+    <!-- Tasks High -->
+    <script>
+    // create a firebase reference to the root
+    var ref = new Firebase('https://rockemsockemrobotstodo.firebaseio.com/');
+
+    function deleteMe(reference) {
+        var deleteReference = new Firebase('https://rockemsockemrobotstodo.firebaseio.com/todos/High/' + reference);
+        //Clear the list before reload happens since firebase on function fails to handle deletion reload
+        document.getElementById("tasks").innerHTML = "";
+        deleteReference.remove(onComplete);
+        alert("Deleted!");
+    }
+    var onComplete = function(error) {
+        if (error) {
+            console.log('Synchronization failed');
+        } else {
+            console.log('Synchronization succeeded');
+        }
+    };
+    // read data from the location todos/high
+    ref.child('todos/High').on('value', function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+            var childData = childSnapshot.val();
+            var childKey = childSnapshot.key();
+            console.log(childData.Assigned)
+            if (childData.Assigned == "jtresman") {
+                $('#tasksHigh').append(' <div class="card-panel hoverable"> <div class="card blue-grey darken-1"> <div class="card-content white-text"> <span class="card-title">' + childData.Title + '</span> </div> <div class="card-action"> <p class="orange-text">Deadline: <span class="black-text"> ' + childData.Deadline + '</span></p><p class="orange-text">Priority: <span class="black-text"> High</span></p><p class="orange-text assign">Assigned: <span class="black-text"> ' + childData.Assigned + '</span></p></div> </div> <button class="btn waves-effect waves-light red" onclick = deleteMe("' + childKey + '") type="submit">Delete Task<i class="material-icons right">send</i></button> </div>')
+                if (!childData.Assigned) {
+                    $(".assigned-person").hide();
+                    $(".assign").hide();
+                }
+            };
+        })
+    });
+    </script>
+
+    <!-- Tasks Medium -->
+    <script>
+    // create a firebase reference to the root
+    var ref = new Firebase('https://rockemsockemrobotstodo.firebaseio.com/');
+
+    function deleteMe(reference) {
+        var deleteReference = new Firebase('https://rockemsockemrobotstodo.firebaseio.com/todos/High/' + reference);
+        //Clear the list before reload happens since firebase on function fails to handle deletion reload
+        document.getElementById("tasks").innerHTML = "";
+        deleteReference.remove(onComplete);
+        alert("Deleted!");
+    }
+    var onComplete = function(error) {
+        if (error) {
+            console.log('Synchronization failed');
+        } else {
+            console.log('Synchronization succeeded');
+        }
+    };
+    // read data from the location todos/high
+    ref.child('todos/Medium').on('value', function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+            var childData = childSnapshot.val();
+            var childKey = childSnapshot.key();
+            if (childData.Assigned == "jtresman") {
+                $('#tasksMedium').append(' <div class="card-panel hoverable"> <div class="card blue-grey darken-1"> <div class="card-content white-text"> <span class="card-title">' + childData.Title + '</span> </div> <div class="card-action"> <p class="orange-text">Deadline: <span class="black-text"> ' + childData.Deadline + '</span></p><p class="orange-text">Priority: <span class="black-text"> Medium</span></p><p class="orange-text assign">Assigned: <span class="black-text"> ' + childData.Assigned + '</span></p></div> </div> <button class="btn waves-effect waves-light red" onclick = deleteMe("' + childKey + '") type="submit">Delete Task<i class="material-icons right">send</i></button> </div>')
+                if (!childData.Assigned) {
+                    $(".assigned-person").hide();
+                    $(".assign").hide();
+                }
+            };
+        })
+    });
+    </script>
+
+    <!-- Tasks Low -->
+    <script>
+    // create a firebase reference to the root
+    var ref = new Firebase('https://rockemsockemrobotstodo.firebaseio.com/');
+
+    function deleteMe(reference) {
+        var deleteReference = new Firebase('https://rockemsockemrobotstodo.firebaseio.com/todos/High/' + reference);
+        //Clear the list before reload happens since firebase on function fails to handle deletion reload
+        document.getElementById("tasks").innerHTML = "";
+        deleteReference.remove(onComplete);
+        alert("Deleted!");
+    }
+    var onComplete = function(error) {
+        if (error) {
+            console.log('Synchronization failed');
+        } else {
+            console.log('Synchronization succeeded');
+        }
+    };
+    // read data from the location todos/high
+    ref.child('todos/Low').on('value', function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+            var childData = childSnapshot.val();
+            var childKey = childSnapshot.key();
+            if (childData.Assigned == "jtresman") {
+                $('#tasksLow').append(' <div class="card-panel hoverable"> <div class="card blue-grey darken-1"> <div class="card-content white-text"> <span class="card-title">' + childData.Title + '</span> </div> <div class="card-action"> <p class="orange-text">Deadline: <span class="black-text"> ' + childData.Deadline + '</span></p><p class="orange-text">Priority: <span class="black-text"> Low</span></p><p class="orange-text assign">Assigned: <span class="black-text"> ' + childData.Assigned + '</span></p></div> </div> <button class="btn waves-effect waves-light red" onclick = deleteMe("' + childKey + '") type="submit">Delete Task<i class="material-icons right">send</i></button> </div>')
+                if (!childData.Assigned) {
+                    $(".assigned-person").hide();
+                    $(".assign").hide();
+                }
+            };
+        })
+    });
+    </script>
 
     <!--Create Food List-->
     <script>
     // create a firebase reference to the root
     var ref = new Firebase('https://hello-jtresman.firebaseio.com/')
-
-    // read data from the location bio/favorite_foods, only once
+        // read data from the location bio/favorite_foods, only once
     ref.child('bio/favorite_foods').once('value', function(snapshot) {
         var foods = snapshot.val()
         foods.forEach(function(food) {
             $('#foods').append('<li class="collection-item">' + food + '</li>')
         })
-
-
     })
     </script>
 
@@ -71,8 +195,7 @@
     <script>
     // create a firebase reference to the root
     var ref = new Firebase('https://hello-jtresman.firebaseio.com/')
-
-    // read data from the location bio/hobbies, only once
+        // read data from the location bio/hobbies, only once
     ref.child('bio/hobbies').once('value', function(snapshot) {
         var hobbies = snapshot.val()
         hobbies.forEach(function(hobbie) {
@@ -85,15 +208,12 @@
     <script>
     // create a firebase reference to the root
     var ref = new Firebase('https://hello-jtresman.firebaseio.com/')
-
-    // read data from the location bio/hobbies, only once
+        // read data from the location bio/hobbies, only once
     ref.child('bio/class_list').once('value', function(snapshot) {
         var classes = snapshot.val()
         classes.forEach(function(class_item) {
             $('#class_list').append('<li class="collection-item">' + class_item + '</li>')
         })
-
-
     })
     </script>
 
@@ -101,8 +221,7 @@
     <script>
     // create a firebase reference to the root
     var ref = new Firebase('https://hello-jtresman.firebaseio.com/')
-
-    // read data from the location bio/hobbies, only once
+        // read data from the location bio/hobbies, only once
     ref.child('bio/jobs').once('value', function(snapshot) {
         var jobs = snapshot.val()
         jobs.forEach(function(job) {
@@ -114,8 +233,7 @@
     <script>
     // create a firebase reference to the root
     var ref = new Firebase('https://hello-jtresman.firebaseio.com/')
-
-    // read data from the location bio/hobbies, only once
+        // read data from the location bio/hobbies, only once
     ref.child('bio/education').once('value', function(snapshot) {
         var education = snapshot.val()
         education.forEach(function(school) {
