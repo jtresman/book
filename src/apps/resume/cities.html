@@ -41,7 +41,7 @@
     <div class="container">
 
         <h1>My Favoirte Cities</h1>
-        <ul class="collapsible" data-collapsible="expandable" id="cities">
+        <ul class="collapsible" data-collapsible="expandable" id="city_list">
         </ul>
         <div id="map" style="height:500px"></div>
     </div>
@@ -50,6 +50,8 @@
     // create a layer group to hold all the markers
     var markersLayerGroup = L.layerGroup()
     markersLayerGroup.clearLayers();
+    document.getElementById('city_list').innerHTML = "";
+
     // create a firebase reference to the root
     var weatherRefAustin = new Firebase('https://publicdata-weather.firebaseio.com/austin');
     var weatherRefDenver = new Firebase('https://publicdata-weather.firebaseio.com/denver');
@@ -138,7 +140,7 @@
     function displayCity(city, name) {
         console.log('displayCity', city)
         var list = '<li>' + '<div class="collapsible-header black-text" id="key">' + '<i class="material-icons">room</i>' + name + '</div>' + '<div class="collapsible-body grey lighten-4">' + '<t>Current Weather: ' + city.currently.summary + '<br> <t>Current Temperature: ' + city.currently.temperature + ' &degF <br> </div>'
-        $('#cities').append(list)
+        $('#city_list').append(list)
     }
     var clear = L.icon({
         iconUrl: 'Images/sunny18.png',
