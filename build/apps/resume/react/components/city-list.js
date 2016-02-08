@@ -4,8 +4,12 @@ MyComponents.City = React.createClass({
     return (
       <div className="card">
         <div className="card-content">
-        TODO: This is a component to display the weather of a city.
-        Raw props data is {JSON.stringify(this.props.city)}
+        <ul className="collection">
+          <li className="collection-header"><h4>{this.props.city.name}</h4></li>
+          <li className="collection-item">Temperature: {this.props.city.temp}  <span>&deg;</span>F</li>
+          <li className="collection-item">Summary: {this.props.city.summary}</li>
+        </ul>
+         
         </div>
       </div>
     );
@@ -23,9 +27,7 @@ MyComponents.CityList = React.createClass({
     return (
       <div className="card">
         <div className="card-content">
-        TODO: This is a component to display the weather of a list of cities
-        Raw props data is {JSON.stringify(this.props.cities)}
-
+        
         {cityElements}
 
         </div>

@@ -67,7 +67,7 @@
 
       refTasks.child('todos/Low').on('value', function(snapshot) {
         var todos = snapshot.val() 
-        console.log(todos)
+        // console.log(todos)
         var myList = []
 
        snapshot.forEach(function(childSnapshot) {
@@ -77,24 +77,41 @@
          }
        })
 
-       console.log(myList)
+       // console.log(myList)
 
         ReactDOM.render(
           <MyComponents.TaskList tasks={myList}/>,
           $('#tasks').get(0)
         );  
       });
-      // var tasks = [{name: 'go to the movies'}, {name: 'sleep'}]
-
-      
+    
 
       // TODO: load city weather data from Firebase
       var cities = [{name: 'Austin'}, {name: 'New York'}]
+      var weatherRefAustin = new Firebase('https://publicdata-weather.firebaseio.com/austin');
+      var weatherRefNewYork = new Firebase('https://publicdata-weather.firebaseio.com/newyork');
 
-      ReactDOM.render(
-        <MyComponents.CityList cities={cities}/>,
-        $('#cities').get(0)
-      );
+      var cities = []
+
+      weatherRefAustin.once('value', function(snapshot) {
+        var city = snapshot.val()
+        cities.push({name: "Austin", temp: city.currently.temperature, summary: city.currently.summary })
+      })
+
+      weatherRefNewYork.once('value', function(snapshot) {
+        var city = snapshot.val()
+        cities.push({name: "New York", temp: city.currently.temperature, summary: city.currently.summary })
+
+        console.log(cities)
+
+        ReactDOM.render(
+          <MyComponents.CityList cities={cities}/>,
+          $('#cities').get(0)
+        );
+
+      })
+
+      
 
 
       // TODO: load skill data from Firebase
