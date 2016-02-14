@@ -25,14 +25,7 @@
     <!-- https://github.com/PaulLeCam/react-leaflet -->
     <script src="https://npmcdn.com/react-leaflet/dist/react-leaflet.min.js"></script>
 
-    <style>
-      .leaflet-container {
-        height: 400px;
-        width: 80%;
-        margin: 0 auto;
-      }
-    </style>
-
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
     <div id="app-container" class="container">
@@ -46,9 +39,10 @@
     <!-- import each component class in components/ -->
     <!-- The order is important. Dependencies must be loaded first -->
     <script type="text/babel" src="components/navbar.jsx"></script>
-    <script type="text/babel" src="components/team.jsx"></script>
+    <!-- <script type="text/babel" src="components/team.jsx"></script> -->
     <script type="text/babel" src="components/map.jsx"></script>
     <script type="text/babel" src="components/user.jsx"></script>
+    <script type="text/babel" src="components/needs.jsx"></script>
 
     <!-- Main app container -->
     <script type="text/babel" src="components/app.jsx"></script>

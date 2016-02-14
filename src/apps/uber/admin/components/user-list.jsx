@@ -1,11 +1,25 @@
-class UserList extends React.Component {
-  render(){
-    return <div>
-      <div>ToDo: List of Users
-        <pre>{JSON.stringify(this.props.users)}</pre>
-      </div>      
-    </div>
-  }
-}
 
-MyComponents.UserList = UserList
+MyComponents.User = React.createClass({
+ render: function() {
+   return (
+         <p>{this.props.user.name}</p>
+   );
+ }
+});
+
+
+MyComponents.UserList = React.createClass({
+  render: function() {
+
+    var users = this.props.users.map(function(u,i){
+      return <MyComponents.User user={u} key={i}/>
+    })
+
+    return (
+      <div>
+      	<h3>Clients</h3>
+        	{users}
+      </div>
+    );
+  }
+});

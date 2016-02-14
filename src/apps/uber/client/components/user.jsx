@@ -1,22 +1,23 @@
 class User extends React.Component {
 
-  render(){
+    render(){
 
-    if (this.props.user){
-      // user is authenticated
-      return <div>
-          <h2>Hello {this.props.user.displayName}!</h2>
-          <pre>{JSON.stringify(this.props.user)}</pre>
-          <a href="#" onClick={this.props.logoutAction}>Logout</a>
-      </div>
-    } else {
-      // user is not set
-      return <div>
-        <h2>You are not logged in yet.</h2>
-        <a href="#" onClick={this.props.loginAction}>Login via Github</a>
-      </div>
+        if (this.props.user){
+            var u = this.props.user.name;
+            console.log(u);
+            // user is authenticated
+            return <ul id="nav-mobile" className="left hide-on-med-and-down">
+                <li><a href="/">Home</a></li>
+                <li><a href={"https://github.com/" + u}>{u}</a></li>
+                <li><a className="right" href="#" onClick={this.props.logoutAction}>Logout</a></li>
+            </ul>;
+        } else {
+            return <ul id="nav-mobile" className="left hide-on-med-and-down">
+                <li><a href="/">Home</a></li>
+                <li><a href="#" onClick={this.props.loginAction}>Login</a></li>
+            </ul>;
+        }
     }
-  }
 
 }
-MyComponents.User = User
+MyComponents.User = User;

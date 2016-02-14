@@ -1,6 +1,6 @@
 // a single 'data' object that holds the data of your entire app, with initial values
 var data = {
-  center: [37.78, -122.41], // San Francisco
+  center: [39.74, -104.99], // Denver
   providers: [],
   users: []
 }
@@ -24,7 +24,7 @@ function render(){
 // DATA
 //
 
-var firebaseRef = new Firebase('https://ucdd2-book.firebaseio.com/uber')
+var firebaseRef = new Firebase('https://weekfour.firebaseio.com')
 
 // Real-time Data (load constantly on changes)
 firebaseRef.child('users')

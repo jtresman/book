@@ -25,16 +25,23 @@
     <!-- https://github.com/PaulLeCam/react-leaflet -->
     <script src="https://npmcdn.com/react-leaflet/dist/react-leaflet.min.js"></script>
 
-    <style>
-      .leaflet-container {
-        height: 400px;
-        width: 80%;
-        margin: 0 auto;
-      }
-    </style>
+    <link rel="stylesheet" href="style.css">
 
   </head>
   <body>
+    <div class="container">
+        <nav>
+          <div class="nav-wrapper blue-grey darken-1">
+            <a href="index.html" class="brand-logo right">Refresh My Ride!</a>
+            <ul id="nav-mobile" class="left hide-on-med-and-down">
+              <li><a href="../index.html">Home</a></li>
+              <li class="active"><a href="index.html">Admin</a></li>
+              <li><a href="../client/index.html">Client</a></li>
+            </ul>
+          </div>
+        </nav>
+    </div>
+
     <div id="app-container" class="container">
     </div>
 
