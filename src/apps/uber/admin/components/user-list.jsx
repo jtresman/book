@@ -12,7 +12,9 @@ MyComponents.UserList = React.createClass({
   render: function() {
 
     var users = this.props.users.map(function(u,i){
-      return <MyComponents.User user={u} key={i}/>
+      if (u.status === "online"){
+        return <MyComponents.User user={u} key={i}/>
+      }
     })
 
     return (

@@ -4,7 +4,6 @@ class User extends React.Component {
 
         if (this.props.user){
             var u = this.props.user.name;
-            console.log(u);
             // user is authenticated
             return <ul id="nav-mobile" className="left hide-on-med-and-down">
                 <li><a href="/">Home</a></li>

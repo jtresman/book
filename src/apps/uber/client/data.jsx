@@ -1,8 +1,14 @@
 // a single 'data' object that holds the data of your entire app, with initial values
+var userData = function() {
+var match = document.cookie.match(new RegExp('user=([^;]+)'));
+  if (match) return JSON.parse(match[1]);
+  return null;
+}();
+
 var data = {
   center: [39.74, -104.99], // Denver
   providers: [],
-  user: null,
+  user: userData,
   needs: []
 }
 
@@ -44,49 +50,48 @@ firebaseRef.child('providers')
 actions.setUserLocation = function(latlng){
 
   if (data.user){
-    firebaseRef
-      .child('users')
-      .child(data.user.username)
-      .child('pos')
-      .set([latlng.lat, latlng.lng])
+    var u = firebaseRef.child('users').child(data.user.name);
+    u.child('lat').set(latlng.lat);
+    u.child('lon').set(latlng.lng);
+    u.child('lastActive').set(Date.now());
   }
 }
 
 actions.login = function(){
+    firebaseRef.authWithOAuthPopup("github", function(error, authData){
+        // handle the result of the authentication
+        if (error) {
+            console.log("Login Failed!", error);
+            return;
+        }
+        console.log("Authenticated successfully with payload:", authData);
 
-  firebaseRef.authWithOAuthPopup("github", function(error, authData){
+        // create a user object based on authData
+        var user = {
+            displayName: authData.github.displayName,
+            name: authData.github.username,
+            id: authData.github.id,
+            status: 'online',
+            lastActive: Date.now(),
+            // position, default to the map center
+            lat: 39.74,
+            lon: -104.99
+        };
 
-    // handle the result of the authentication
-    if (error) {
-      console.log("Login Failed!", error);
-    } else {
-      console.log("Authenticated successfully with payload:", authData);
+        document.cookie = "user="+JSON.stringify(user)+"; path=/";
 
-      // create a user object based on authData
-      var user = {
-        displayName: authData.github.displayName,
-        name: authData.github.username,
-        id: authData.github.id,
-        status: 'online',
-        lat: 39.74,  // position, default to the map center
-        lon: -104.99
-      }
+        var userRef = firebaseRef.child('users').child(user.name);
 
-      var userRef = firebaseRef.child('users').child(user.name)
+        // subscribe to the user data
+        userRef.on('value', function(snapshot){
+            data.user = snapshot.val();
+            render();
+        });
 
-      // subscribe to the user data
-      userRef.on('value', function(snapshot){
-        data.user = snapshot.val()
-        render()
-      })
-
-      // set the user data
-      userRef.set(user)
-
-    }
-  })
-
-}
+        // set the user data
+        userRef.set(user);
+    });
+};
 
 actions.logout = function(){
 
@@ -96,7 +101,9 @@ actions.logout = function(){
 
     var userRef = firebaseRef
       .child('users')
-      .child(data.user.name)
+      .child(data.user.name);
+
+  document.cookie = "user=; expires=Thu, 18 Dec 2013 12:00:00 UTC; path=/";
 
     // unsubscribe to the user data
     userRef.off()

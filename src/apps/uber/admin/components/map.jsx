@@ -1,47 +1,47 @@
 
-const {Map, Marker, CircleMarker, Popup, TileLayer, MapLayer}  = window.ReactLeaflet
+const {Map, Marker, CircleMarker, Popup, TileLayer, MapLayer}  = window.ReactLeaflet;
 
 class MapView extends React.Component {
   render(){
 
+    const users = this.props.users
+    const userElements = _.map(users, function(p,i){
+      if (p.status === "online"){
+        console.log(p.status)
+        p.pos = [p.lat, p.lon]
+        return <CircleMarker radius={15} center={p.pos} key={i} color={'blue'}>
+          <Popup>
+            <span>{p.name}</span>
+          </Popup>
+        </CircleMarker>
+      }
+    });
+
     const providers = this.props.providers
     const providerElements = _.map(providers, function(p,i){
-      return <Marker position={p.pos} key={i}>
+      p.pos = [p.lat, p.lon]
+      return <CircleMarker radius={15} center={p.pos} key={i} color={'green'}>
         <Popup>
-          <span>{JSON.stringify(p)}</span>
+          <span>{p.name}</span>
         </Popup>
-      </Marker>
-    })
+      </CircleMarker>
+    });
 
-    let userElement
-    if (this.props.user){
-      userElement = <CircleMarker center={this.props.user.pos}/>
-    } else {
-      userElement = ''
-    }
 
     // Note: .bind(this) is important for the handler function's 'this'
     // pointer to refer to this MapView instance
 
-    var token = 'pk.eyJ1Ijoibmljb3QiLCJhIjoiY2lqdnkzbGQyMGRqY3VjbTVwbDNyOGcxaiJ9.-tW3kDrfp15nLw82zErsjg'
-    const mapurl = 'https://api.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=' + token
-    return  <Map center={this.props.center}
-          zoom={14}
-          onLeafletClick={this.handleLeafletClick.bind(this)}>
-        <TileLayer
-          url={mapurl}
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        />
+      var token = 'pk.eyJ1Ijoibmljb3QiLCJhIjoiY2lqdnkzbGQyMGRqY3VjbTVwbDNyOGcxaiJ9.-tW3kDrfp15nLw82zErsjg';
+        const mapurl = 'https://api.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=' + token;
+        return  <Map center={this.props.center}
+                     zoom={13}>
+            <TileLayer
+                url={mapurl}
+                attribution='&copy; <a href="Mapbox.com">Mapbox</a>'/>
+        {userElements}
         {providerElements}
-        {userElement}
-      </Map>
-  }
-
-
-  handleLeafletClick(event){
-    console.log('leaflet click event', event)
-    this.props.setUserLocationAction(event.latlng)
+        </Map>;
   }
 }
 
-MyComponents.MapView = MapView
+MyComponents.MapView = MapView;

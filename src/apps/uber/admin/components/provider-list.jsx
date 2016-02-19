@@ -2,14 +2,16 @@
 MyComponents.Provider = React.createClass({
  render: function() {
    return (
-   		<div>
-   			<h5>{this.props.provider.name}</h5>
-   			<p>Gas: {JSON.stringify(this.props.provider.gas)}</p>
-   			<p>Windshield Wiper Fluid: {JSON.stringify(this.props.provider.winwash)}</p>
-   			<p>Car Jump: {JSON.stringify(this.props.provider.jump)}</p>
-   			<p>Oil Change: {JSON.stringify(this.props.provider.airfresh)}</p>
-   			<p>Car Cleaning: {JSON.stringify(this.props.provider.vacuum)}</p>
-   		</div>
+
+        <tr>
+          <td>{this.props.provider.name}</td>
+          <td>{JSON.stringify(this.props.provider.gas)}</td>
+          <td>{JSON.stringify(this.props.provider.winwash)}</td>
+          <td>{JSON.stringify(this.props.provider.jump)}</td>
+          <td>{JSON.stringify(this.props.provider.airfresh)}</td>
+          <td>{JSON.stringify(this.props.provider.vacuum)}</td>
+        </tr>
+
 
    );
  }
@@ -25,9 +27,24 @@ MyComponents.ProviderList = React.createClass({
 
     return (
       <div>
-      	<h3>Providers</h3>
-        	{providers}
+        <h3>Providers</h3>
+        <table>
+          <thead>
+            <tr>
+              <th data-field="name">Name</th>
+              <th data-field="gas">Gas</th>
+              <th data-field="winwash">Windwhield Wiper Fluid</th>
+              <th data-field="jump">Car Jump</th>
+              <th data-field="airfresh">Oil Change</th>
+              <th data-field="vacuum">Car Cleaning</th>
+            </tr>
+          </thead>
+          <tbody>
+            {providers}
+          </tbody>
+        </table>
       </div>
     );
   }
 });
+
