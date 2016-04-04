@@ -1,4 +1,11 @@
 class CodeView extends React.Component {
+
+    componentDidMount() {
+        var firepadRef = new Firebase('https://hello-jtresman.firebaseio.com/code/');
+        var editor = ace.edit('firepad-container');
+        var firepad = Firepad.fromACE(firepadRef, editor);
+        editor.getSession().setMode("ace/mode/javascript");
+    }
     
     render(){
 

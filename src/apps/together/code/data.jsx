@@ -6,10 +6,7 @@ var match = document.cookie.match(new RegExp('user=([^;]+)'));
 }();
 
 var data = {
-  center: [39.74, -104.99], // Denver
-  providers: [],
-  user: userData,
-  needs: []
+  user: userData
 };
 
 // a single 'handlers' object that holds all the actions of your entire app
@@ -31,44 +28,28 @@ function render(){
 }
 
 
-function editor(){
-
-  var firepadRef = new Firebase('https://glowing-heat-5994.firebaseio.com/');
-  var editor = ace.edit('firepad-container');
-  var firepad = Firepad.fromACE(firepadRef, editor);
-  editor.getSession().setMode("ace/mode/javascript");
-  
-}
-
 //
 // DATA
 //
 
-var firebaseRef = new Firebase('https://weekfour.firebaseio.com');
+var firebaseRef = new Firebase('https://hello-jtresman.firebaseio.com/code/');
 
-// Real-time Data (load constantly on changes)
-firebaseRef.child('providers')
-  .on('value', function(snapshot){
+// // Real-time Data (load constantly on changes)
+// firebaseRef.child('providers')
+//   .on('value', function(snapshot){
 
-    data.providers = _.values(snapshot.val());
-    render()
+//     data.providers = _.values(snapshot.val());
 
-  })
+//   })
 
 //
 // ACTIONS
 //
 
-// Actions
-actions.setUserLocation = function(latlng){
+render()
 
-  if (data.user){
-    var u = firebaseRef.child('users').child(data.user.name);
-    u.child('lat').set(latlng.lat);
-    u.child('lon').set(latlng.lng);
-    u.child('lastActive').set(Date.now());
-  }
-}
+
+// Actions
 
 actions.login = function(){
     firebaseRef.authWithOAuthPopup("github", function(error, authData){
@@ -85,10 +66,7 @@ actions.login = function(){
             name: authData.github.username,
             id: authData.github.id,
             status: 'online',
-            lastActive: Date.now(),
-            // position, default to the map center
-            lat: 39.74,
-            lon: -104.99
+            lastActive: Date.now()
         };
 
         document.cookie = "user="+JSON.stringify(user)+"; path=/";

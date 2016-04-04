@@ -1,5 +1,10 @@
 class User extends React.Component {
 
+    componentDidMount() {
+        $(".button-collapse").sideNav();
+    }
+
+
     render(){
 
         if (this.props.user){
