@@ -5,8 +5,12 @@ var match = document.cookie.match(new RegExp('user=([^;]+)'));
   return null;
 }();
 
+var cl = "ace/mode/javascript";
+
 var data = {
-  user: userData
+  user: userData,
+  users: [],
+  codeLang : cl
 };
 
 // a single 'handlers' object that holds all the actions of your entire app
@@ -23,8 +27,6 @@ function render(){
     $('#app-container').get(0)
   );
 
-  // editor();/
-
 }
 
 
@@ -35,23 +37,30 @@ function render(){
 var firebaseRef = new Firebase('https://hello-jtresman.firebaseio.com/code/');
 
 // // Real-time Data (load constantly on changes)
-// firebaseRef.child('providers')
-//   .on('value', function(snapshot){
+firebaseRef.child('users')
+  .on('value', function(snapshot){
 
-//     data.providers = _.values(snapshot.val());
-
-//   })
+    data.users = _.values(snapshot.val());
+    
+    render();
+})
 
 //
 // ACTIONS
 //
 
-render()
-
-
 // Actions
 
+actions.updateLanguage = function(event){
+    
+    data.codeLang = event.target.value;
+
+    render();
+};
+
 actions.login = function(){
+    console.log("Getting Called!")
+
     firebaseRef.authWithOAuthPopup("github", function(error, authData){
         // handle the result of the authentication
         if (error) {
@@ -85,6 +94,8 @@ actions.login = function(){
 };
 
 actions.logout = function(){
+
+  console.log("User Loged Out!")
 
   if (data.user){
 
