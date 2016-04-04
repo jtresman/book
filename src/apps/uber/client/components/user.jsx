@@ -9,15 +9,13 @@ class User extends React.Component {
                 <li><a href="../">Home</a></li>
                 <li><a href={"https://github.com/" + u}>{u}</a></li>
                 <li><a className="right" href="#" onClick={this.props.logoutAction}>Logout</a></li>
-                <li className ="active"><a href="index.html">Client</a></li>
-                <li><a href="../admin/index.html">Admin</a></li>
+                <li className ="active"><a href="index.html">Code</a></li>
             </ul>;
         } else {
             return <ul id="nav-mobile" className="right hide-on-med-and-down">
                 <li><a href="../">Home</a></li>
                 <li><a href="#" onClick={this.props.loginAction}>Login</a></li>
-                <li className ="active"><a href="index.html">Client</a></li>
-                <li><a href="../admin/index.html">Admin</a></li>
+                <li className ="active"><a href="index.html">Code</a></li>
             </ul>;
         }
     }

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Code Together</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+    <script src="https://cdn.firebase.com/js/client/2.3.2/firebase.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.0.0/lodash.min.js"></script>
+    <script src="../lib/react.js"></script>
+    <script src="../lib/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.9/ace.js"></script>
+    <script src="https://cdn.firebase.com/libs/firepad/1.2.0/firepad.min.js"></script>
+    <script src="/js/materialize.js"></script>
+    <script src="/js/init.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="app-container" >
+    </div>
+    <script>
+    // MyComponents is a global object where each property is a reference to a component class
+    MyComponents = {}
+
+    </script>
+    <!-- import each component class in components/ -->
+    <!-- The order is important. Dependencies must be loaded first -->
+    <script type="text/babel" src="components/navbar.jsx"></script>
+    <!-- <script type="text/babel" src="components/team.jsx"></script> -->
+    <script type="text/babel" src="components/code.jsx"></script>
+    <script type="text/babel" src="components/user.jsx"></script>
+    <!-- Main app container -->
+    <script type="text/babel" src="components/app.jsx"></script>
+    <!-- Connect the app and data -->
+    <script type="text/babel" src="data.jsx"></script>
+    <script>
+        $(".button-collapse").sideNav();
+    </script>
+</body>
+
+</html>
