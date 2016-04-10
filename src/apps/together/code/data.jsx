@@ -52,10 +52,10 @@ firebaseRef.child('users')
 // Actions
 
 actions.updateLanguage = function(event){
-    
-    data.codeLang = event.target.value;
 
+    data.codeLang = event.target.value;
     render();
+
 };
 
 actions.login = function(){
